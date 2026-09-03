@@ -1,6 +1,7 @@
 [workspace]
 resolver = "2"
 members = [
+    "poshumim_hwscreen",
     "probe2",
     "probe3_node",
     "probe4_wgc",

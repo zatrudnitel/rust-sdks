@@ -5430,6 +5430,21 @@ dependencies = [
 ]
 
 [[package]]
+name = "poshumim_hwscreen"
+version = "0.1.0"
+dependencies = [
+ "env_logger 0.11.11",
+ "livekit",
+ "livekit-api",
+ "log",
+ "napi 2.16.17",
+ "napi-build",
+ "napi-derive 2.16.13",
+ "tokio",
+ "windows 0.58.0",
+]
+
+[[package]]
 name = "potential_utf"
 version = "0.1.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
