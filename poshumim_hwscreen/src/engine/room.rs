@@ -306,8 +306,13 @@ mod it {
 
         let s = e.stats().await.expect("stats() Some after 3s of frames");
         eprintln!("stats (Low): {s:?}");
-        eprintln!("encoder_implementation (Low): {:?}", e.encoder_impl().await);
         assert!(s.fps > 0.0, "expected non-zero fps, got {s:?}");
+        let enc = e.encoder_impl().await;
+        eprintln!("encoder_implementation (Low): {enc:?}");
+        assert!(
+            enc.as_deref().is_some_and(|s| s.contains("NVIDIA")),
+            "expected NVENC encoder, got {enc:?}"
+        );
 
         // --- reconfigure -> rung 3: High (1920x1080@60) ---
         e.reconfigure(encode_config(Quality::High)).await.expect("reconfigure High");
@@ -320,9 +325,13 @@ mod it {
 
         let s2 = e.stats().await.expect("stats() Some after reconfigure");
         eprintln!("stats (High): {s2:?}");
+        assert!(s2.fps > 0.0, "expected non-zero fps after reconfigure, got {s2:?}");
         let enc = e.encoder_impl().await;
         eprintln!("encoder_implementation (High): {enc:?}");
-        assert!(s2.fps > 0.0, "expected non-zero fps after reconfigure, got {s2:?}");
+        assert!(
+            enc.as_deref().is_some_and(|s| s.contains("NVIDIA")),
+            "expected NVENC encoder, got {enc:?}"
+        );
 
         e.close().await;
     }
