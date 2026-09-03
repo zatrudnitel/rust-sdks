@@ -21,7 +21,7 @@ livekit = { path = "../livekit", features = ["rustls-tls-native-roots"], optiona
 livekit-api = { path = "../livekit-api", features = ["rustls-tls-native-roots", "access-token"], optional = true }
 napi = { version = "2", default-features = false, features = ["napi8", "tokio_rt"], optional = true }
 napi-derive = { version = "2", optional = true }
-tokio = { version = "1", features = ["rt", "sync", "time", "macros"], optional = true }
+tokio = { version = "1", features = ["rt", "rt-multi-thread", "sync", "time", "macros"], optional = true }
 log = { version = "0.4", optional = true }
 env_logger = { version = "0.11", optional = true }
 anyhow = { version = "1", optional = true }
@@ -36,6 +36,10 @@ features = [
     "Win32_Graphics_Dxgi_Common", "Win32_Graphics_Gdi", "Win32_System_WinRT",
     "Win32_System_WinRT_Direct3D11", "Win32_System_WinRT_Graphics_Capture",
 ]
+
+[[example]]
+name = "local_run"
+required-features = ["engine"]
 
 [build-dependencies]
 napi-build = "2"
