@@ -2,6 +2,7 @@
 resolver = "2"
 members = [
     "probe2",
+    "probe3_node",
     "livekit",
     "livekit-api",
     "livekit-protocol",

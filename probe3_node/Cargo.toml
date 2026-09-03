@@ -1,0 +1,21 @@
+[package]
+name = "probe3_node"
+version = "0.0.0"
+edition = "2021"
+publish = false
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+napi = { version = "2", default-features = false, features = ["napi8", "tokio_rt"] }
+napi-derive = "2"
+livekit = { path = "../livekit", features = ["rustls-tls-native-roots"] }
+livekit-api = { path = "../livekit-api", features = ["rustls-tls-native-roots", "access-token"] }
+tokio = { version = "1", features = ["full"] }
+anyhow = "1"
+log = "0.4"
+env_logger = "0.11"
+
+[build-dependencies]
+napi-build = "2"
