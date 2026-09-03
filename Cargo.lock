@@ -5433,6 +5433,7 @@ dependencies = [
 name = "poshumim_hwscreen"
 version = "0.1.0"
 dependencies = [
+ "anyhow",
  "env_logger 0.11.11",
  "livekit",
  "livekit-api",

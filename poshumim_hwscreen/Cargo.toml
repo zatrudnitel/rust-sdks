@@ -13,7 +13,7 @@ default = ["engine"]
 # `logic` compiles, for fast cross-platform `cargo test` in per-push CI.
 engine = [
     "dep:livekit", "dep:livekit-api", "dep:napi", "dep:napi-derive",
-    "dep:tokio", "dep:windows", "dep:log", "dep:env_logger",
+    "dep:tokio", "dep:windows", "dep:log", "dep:env_logger", "dep:anyhow",
 ]
 
 [dependencies]
@@ -24,6 +24,7 @@ napi-derive = { version = "2", optional = true }
 tokio = { version = "1", features = ["rt", "sync", "time", "macros"], optional = true }
 log = { version = "0.4", optional = true }
 env_logger = { version = "0.11", optional = true }
+anyhow = { version = "1", optional = true }
 
 [target.'cfg(windows)'.dependencies.windows]
 version = "0.58"
