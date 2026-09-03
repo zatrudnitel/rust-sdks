@@ -1,0 +1,12 @@
+[package]
+name = "probe2"
+version = "0.0.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+livekit = { path = "../livekit", features = ["rustls-tls-native-roots"] }
+livekit-api = { path = "../livekit-api", features = ["rustls-tls-native-roots", "access-token"] }
+tokio = { version = "1", features = ["full"] }
+anyhow = "1"
+env_logger = "0.11"

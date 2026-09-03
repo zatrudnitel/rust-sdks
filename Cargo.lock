@@ -5408,6 +5408,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "probe2"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "env_logger 0.11.11",
+ "livekit",
+ "livekit-api",
+ "tokio",
+]
+
+[[package]]
 name = "proc-macro-crate"
 version = "3.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
