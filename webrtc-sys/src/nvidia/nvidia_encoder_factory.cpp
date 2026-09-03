@@ -16,7 +16,7 @@
 #include "nvEncodeAPI.h"
 #include "rtc_base/logging.h"
 
-#include <dlfcn.h>
+#include "dl_compat.h"
 
 namespace webrtc {
 
@@ -125,7 +125,7 @@ NvencProbeResult ProbeNvencSupport() {
   // CUDA being available does NOT imply NVENC is present. Compute-only GPUs
   // (H100, A100, etc.) have full CUDA support but no encode hardware.
   // Probe the NVENC library and try to open a session to be sure.
-  void* hModule = dlopen("libnvidia-encode.so.1", RTLD_LAZY);
+  void* hModule = lk_dlopen(LK_NVENC_RUNTIME_LIB);
   if (!hModule) {
     RTC_LOG(LS_WARNING) << "NVENC library (libnvidia-encode.so.1) not found, "
                            "hardware encoding unavailable.";
@@ -133,10 +133,10 @@ NvencProbeResult ProbeNvencSupport() {
   }
 
   auto NvEncodeAPIGetMaxSupportedVersion =
-      (NVENCSTATUS(NVENCAPI*)(uint32_t*))dlsym(
+      (NVENCSTATUS(NVENCAPI*)(uint32_t*))lk_dlsym(
           hModule, "NvEncodeAPIGetMaxSupportedVersion");
   auto NvEncodeAPICreateInstance =
-      (NVENCSTATUS(NVENCAPI*)(NV_ENCODE_API_FUNCTION_LIST*))dlsym(
+      (NVENCSTATUS(NVENCAPI*)(NV_ENCODE_API_FUNCTION_LIST*))lk_dlsym(
           hModule, "NvEncodeAPICreateInstance");
 
   NV_ENCODE_API_FUNCTION_LIST fnList = {NV_ENCODE_API_FUNCTION_LIST_VER};
@@ -218,7 +218,7 @@ NvencProbeResult ProbeNvencSupport() {
   if (cuCtx) {
     cuCtxDestroy(cuCtx);
   }
-  dlclose(hModule);
+  lk_dlclose(hModule);
 
   return result;
 }

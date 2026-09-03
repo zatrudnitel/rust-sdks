@@ -19,7 +19,9 @@
 #include <time.h>
 
 #ifdef _WIN32
-#include <winsock.h>
+// winsock2 (not the legacy winsock.h) so this coexists with webrtc's <winsock2.h>
+// — windows-nvenc fork fix; v2 is a superset for the symbols used below.
+#include <winsock2.h>
 #include <windows.h>
 
 #pragma comment(lib, "ws2_32.lib")

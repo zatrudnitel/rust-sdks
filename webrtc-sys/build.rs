@@ -169,6 +169,40 @@ fn main() {
                 //.flag("/wd4819")
                 //.flag("/wd4068")
                 .flag("/EHsc");
+
+            // --- NVENC (hardware H.264/HEVC/AV1) for Windows -------------------
+            // Ported from the linux arm's nvidia block. `cuda.h` and the
+            // driver-API import libs (cuda.lib / nvcuvid.lib, generated from the
+            // system DLLs by src/nvidia/win/gen-cuda-lib.ps1) are vendored under
+            // src/nvidia/win. Delay-loaded so the artifact still loads on
+            // machines without an NVIDIA driver; NvidiaVideoEncoderFactory::
+            // IsSupported() gates actual use at runtime.
+            let manifest_dir = env::var("CARGO_MANIFEST_DIR").unwrap();
+            builder
+                .include("src/nvidia/NvCodec/include")
+                .include("src/nvidia/NvCodec/NvCodec")
+                .file("src/nvidia/NvCodec/NvCodec/NvDecoder/NvDecoder.cpp")
+                .file("src/nvidia/NvCodec/NvCodec/NvEncoder/NvEncoder.cpp")
+                .file("src/nvidia/NvCodec/NvCodec/NvEncoder/NvEncoderCuda.cpp")
+                .file("src/nvidia/h264_encoder_impl.cpp")
+                .file("src/nvidia/h265_encoder_impl.cpp")
+                .file("src/nvidia/av1_encoder_impl.cpp")
+                .file("src/nvidia/h264_decoder_impl.cpp")
+                .file("src/nvidia/h265_decoder_impl.cpp")
+                .file("src/nvidia/nvidia_decoder_factory.cpp")
+                .file("src/nvidia/nvidia_encoder_factory.cpp")
+                .file("src/nvidia/cuda_context.cpp")
+                .define("USE_NVIDIA_VIDEO_CODEC", "1")
+                .flag("/wd4996")
+                .flag("/wd4819")
+                .flag("/wd4267")
+                .flag("/wd4244");
+            println!("cargo:rustc-link-search=native={}/src/nvidia/win", manifest_dir);
+            println!("cargo:rustc-link-lib=static=cuda");
+            println!("cargo:rustc-link-lib=static=nvcuvid");
+            println!("cargo:rustc-link-arg=/DELAYLOAD:nvcuda.dll");
+            println!("cargo:rustc-link-arg=/DELAYLOAD:nvcuvid.dll");
+            println!("cargo:rustc-link-arg=delayimp.lib");
         }
         "linux" => {
             println!("cargo:rustc-link-lib=dylib=rt");

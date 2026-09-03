@@ -3,7 +3,7 @@
 #include <modules/video_coding/codecs/h264/include/h264.h>
 
 #include <cstdlib>
-#include <dlfcn.h>
+#include "dl_compat.h"
 #include <memory>
 #include <mutex>
 
@@ -34,19 +34,19 @@ void LogNvdecDisabledByEnv() {
 
 constexpr char kSdpKeyNameCodecImpl[] = "implementation_name";
 constexpr char kCodecName[] = "NvCodec";
-constexpr char kNvdecRuntimeLibrary[] = "libnvcuvid.so.1";
+constexpr char kNvdecRuntimeLibrary[] = LK_NVDEC_RUNTIME_LIB;
 
 namespace {
 
 bool IsNvdecRuntimeAvailable() {
-  void* hModule = dlopen(kNvdecRuntimeLibrary, RTLD_LAZY | RTLD_LOCAL);
+  void* hModule = lk_dlopen(kNvdecRuntimeLibrary);
   if (!hModule) {
     RTC_LOG(LS_WARNING) << "NVDEC runtime library (" << kNvdecRuntimeLibrary
                         << ") not found, hardware decoding unavailable.";
     return false;
   }
 
-  dlclose(hModule);
+  lk_dlclose(hModule);
   return true;
 }
 

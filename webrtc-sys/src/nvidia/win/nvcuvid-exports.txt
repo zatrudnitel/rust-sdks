@@ -1,0 +1,69 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36252.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file C:\WINDOWS\System32\nvcuvid.dll
+
+File Type: DLL
+
+  Section contains the following exports for nvcuvid64.dll
+
+    00000000 characteristics
+    FFFFFFFF time date stamp
+        0.00 version
+           1 ordinal base
+          41 number of functions
+          41 number of names
+
+    ordinal hint RVA      name
+
+          1    0 000F9880 CreateEncoderInterface
+          3    1 00002160 NvToolCreateInterface
+          4    2 000021F0 NvToolDestroyInterface
+          5    3 00002210 NvToolGetApiFunctionCount
+          6    4 00002220 NvToolGetApiID
+          7    5 00002230 NvToolGetApiNames
+          8    6 00002240 NvToolGetInterface
+          9    7 00002260 NvToolSetApiID
+         10    8 00002270 NvToolSetInterface
+         11    9 000033B0 __std_2U4S4U_X08
+          2    A 001C2170 __std_4U4S4U_X04
+         12    B 00002860 cuvidConvertYUVToRGB
+         13    C 00002930 cuvidConvertYUVToRGBArray
+         14    D 000029E0 cuvidCreateDecoder
+         15    E 00002330 cuvidCreateVideoParser
+         16    F 000023C0 cuvidCreateVideoSource
+         17   10 00002450 cuvidCreateVideoSourceW
+         18   11 00002A70 cuvidCtxLock
+         19   12 00002AF0 cuvidCtxLockCreate
+         20   13 00002B80 cuvidCtxLockDestroy
+         21   14 00002BF0 cuvidCtxUnlock
+         22   15 00002C70 cuvidDecodePicture
+         23   16 00002D00 cuvidDecodePictureAsync
+         24   17 00002D90 cuvidDestroyDecoder
+         25   18 000024E0 cuvidDestroyVideoParser
+         26   19 00002550 cuvidDestroyVideoSource
+         27   1A 00002E00 cuvidGetDecodeStatus
+         28   1B 00002E90 cuvidGetDecoderCaps
+         29   1C 000025C0 cuvidGetSourceAudioFormat
+         30   1D 00002650 cuvidGetSourceVideoFormat
+         31   1E 00002F00 cuvidGetVideoFrameSurface
+         32   1F 000026E0 cuvidGetVideoSourceState
+         33   20 00002F90 cuvidMapVideoFrame
+         34   21 00003040 cuvidMapVideoFrame64
+         35   22 00002750 cuvidParseVideoData
+         36   23 000030F0 cuvidPrivateOp
+         37   24 00003180 cuvidReconfigureDecoder
+         38   25 00003210 cuvidRegisterDecodeSurfaces
+         39   26 000027E0 cuvidSetVideoSourceState
+         40   27 000032A0 cuvidUnmapVideoFrame
+         41   28 00003320 cuvidUnmapVideoFrame64
+
+  Summary
+
+        C000 .data
+       2A000 .pdata
+     1BB5000 .rdata
+        3000 .reloc
+        1000 .rsrc
+      2C3000 .text
